@@ -2,4 +2,4 @@
 
 Welcome to the Advanced Custom Fields Gradient Finder repository on Github.
 
-EXTENDED_DESCRIPTION
+Drag and drop images to the field and edit the gradient afterwards. Based on https://github.com/aaronm67/gradientfinder
