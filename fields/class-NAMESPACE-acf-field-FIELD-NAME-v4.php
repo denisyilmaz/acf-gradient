@@ -1,22 +1,21 @@
 <?php
 
 // exit if accessed directly
-if (!defined('ABSPATH')) exit;
+if( ! defined( 'ABSPATH' ) ) exit;
 
 
 // check if class already exists
-if (!class_exists('ynm_acf_field_gradient')) :
+if( !class_exists('NAMESPACE_acf_field_FIELD_NAME') ) :
 
 
-	class ynm_acf_field_gradient extends acf_field
-	{
-
-		// vars
-		var $settings, // will hold info such as dir / path
-			$defaults; // will hold default field options
-
-
-		/*
+class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
+	
+	// vars
+	var $settings, // will hold info such as dir / path
+		$defaults; // will hold default field options
+		
+		
+	/*
 	*  __construct
 	*
 	*  Set name / label needed for actions / filters
@@ -24,30 +23,31 @@ if (!class_exists('ynm_acf_field_gradient')) :
 	*  @since	3.6
 	*  @date	23/01/13
 	*/
+	
+	function __construct( $settings )
+	{
+		// vars
+		$this->name = 'FIELD_NAME';
+		$this->label = __('FIELD_LABEL');
+		$this->category = __("Basic",'TEXTDOMAIN'); // Basic, Content, Choice, etc
+		$this->defaults = array(
+			// add default here to merge into your field. 
+			// This makes life easy when creating the field options as you don't need to use any if( isset('') ) logic. eg:
+			//'preview_size' => 'thumbnail'
+		);
+		
+		
+		// do not delete!
+    	parent::__construct();
+    	
+    	
+    	// settings
+		$this->settings = $settings;
 
-		function __construct($settings)
-		{
-			// vars
-			$this->name = 'gradient';
-			$this->label = __('Color Gradient');
-			$this->category = __("Basic", 'acf-gradient'); // Basic, Content, Choice, etc
-			$this->defaults = array(
-				// add default here to merge into your field. 
-				// This makes life easy when creating the field options as you don't need to use any if( isset('') ) logic. eg:
-				//'preview_size' => 'thumbnail'
-			);
-
-
-			// do not delete!
-			parent::__construct();
-
-
-			// settings
-			$this->settings = $settings;
-		}
-
-
-		/*
+	}
+	
+	
+	/*
 	*  create_options()
 	*
 	*  Create extra options for your field. This is rendered when editing a field.
@@ -59,48 +59,48 @@ if (!class_exists('ynm_acf_field_gradient')) :
 	*
 	*  @param	$field	- an array holding all the field's data
 	*/
-
-		function create_options($field)
-		{
-			// defaults?
-			/*
+	
+	function create_options( $field )
+	{
+		// defaults?
+		/*
 		$field = array_merge($this->defaults, $field);
 		*/
-
-			// key is needed in the field names to correctly save the data
-			$key = $field['name'];
-
-
-			// Create Field Options HTML
-			?>
-		<tr class="field_option field_option_<?php echo $this->name; ?>">
-			<td class="label">
-				<label><?php _e("Preview Size", 'acf-gradient'); ?></label>
-				<p class="description"><?php _e("Thumbnail is advised", 'acf-gradient'); ?></p>
-			</td>
-			<td>
-				<?php
-
-				do_action('acf/create_field', array(
-					'type'		=>	'radio',
-					'name'		=>	'fields[' . $key . '][preview_size]',
-					'value'		=>	$field['preview_size'],
-					'layout'	=>	'horizontal',
-					'choices'	=>	array(
-						'thumbnail' => __('Thumbnail', 'acf-gradient'),
-						'something_else' => __('Something Else', 'acf-gradient'),
-					)
-				));
-
-				?>
-			</td>
-		</tr>
-	<?php
-
-}
-
-
-/*
+		
+		// key is needed in the field names to correctly save the data
+		$key = $field['name'];
+		
+		
+		// Create Field Options HTML
+		?>
+<tr class="field_option field_option_<?php echo $this->name; ?>">
+	<td class="label">
+		<label><?php _e("Preview Size",'TEXTDOMAIN'); ?></label>
+		<p class="description"><?php _e("Thumbnail is advised",'TEXTDOMAIN'); ?></p>
+	</td>
+	<td>
+		<?php
+		
+		do_action('acf/create_field', array(
+			'type'		=>	'radio',
+			'name'		=>	'fields['.$key.'][preview_size]',
+			'value'		=>	$field['preview_size'],
+			'layout'	=>	'horizontal',
+			'choices'	=>	array(
+				'thumbnail' => __('Thumbnail', 'TEXTDOMAIN'),
+				'something_else' => __('Something Else', 'TEXTDOMAIN'),
+			)
+		));
+		
+		?>
+	</td>
+</tr>
+		<?php
+		
+	}
+	
+	
+	/*
 	*  create_field()
 	*
 	*  Create the HTML interface for your field
@@ -111,27 +111,27 @@ if (!class_exists('ynm_acf_field_gradient')) :
 	*  @since	3.6
 	*  @date	23/01/13
 	*/
-
-function create_field($field)
-{
-	// defaults?
-	/*
+	
+	function create_field( $field )
+	{
+		// defaults?
+		/*
 		$field = array_merge($this->defaults, $field);
 		*/
-
-	// perhaps use $field['preview_size'] to alter the markup?
-
-
-	// create Field HTML
-	?>
+		
+		// perhaps use $field['preview_size'] to alter the markup?
+		
+		
+		// create Field HTML
+		?>
 		<div>
-
+			
 		</div>
-	<?php
-}
-
-
-/*
+		<?php
+	}
+	
+	
+	/*
 	*  input_admin_enqueue_scripts()
 	*
 	*  This action is called in the admin_enqueue_scripts action on the edit screen where your field is created.
@@ -143,28 +143,29 @@ function create_field($field)
 	*  @date	23/01/13
 	*/
 
-function input_admin_enqueue_scripts()
-{
-	// Note: This function can be removed if not used
-
-
-	// vars
-	$url = $this->settings['url'];
-	$version = $this->settings['version'];
-
-
-	// register & include JS
-	wp_register_script('acf-gradient', "{$url}assets/js/input.js", array('acf-input'), $version);
-	wp_enqueue_script('acf-gradient');
-
-
-	// register & include CSS
-	wp_register_style('acf-gradient', "{$url}assets/css/input.css", array('acf-input'), $version);
-	wp_enqueue_style('acf-gradient');
-}
-
-
-/*
+	function input_admin_enqueue_scripts()
+	{
+		// Note: This function can be removed if not used
+		
+		
+		// vars
+		$url = $this->settings['url'];
+		$version = $this->settings['version'];
+		
+		
+		// register & include JS
+		wp_register_script('TEXTDOMAIN', "{$url}assets/js/input.js", array('acf-input'), $version);
+		wp_enqueue_script('TEXTDOMAIN');
+		
+		
+		// register & include CSS
+		wp_register_style('TEXTDOMAIN', "{$url}assets/css/input.css", array('acf-input'), $version);
+		wp_enqueue_style('TEXTDOMAIN');
+		
+	}
+	
+	
+	/*
 	*  input_admin_head()
 	*
 	*  This action is called in the admin_head action on the edit screen where your field is created.
@@ -176,13 +177,13 @@ function input_admin_enqueue_scripts()
 	*  @date	23/01/13
 	*/
 
-function input_admin_head()
-{
-	// Note: This function can be removed if not used
-}
-
-
-/*
+	function input_admin_head()
+	{
+		// Note: This function can be removed if not used
+	}
+	
+	
+	/*
 	*  field_group_admin_enqueue_scripts()
 	*
 	*  This action is called in the admin_enqueue_scripts action on the edit screen where your field is edited.
@@ -194,13 +195,13 @@ function input_admin_head()
 	*  @date	23/01/13
 	*/
 
-function field_group_admin_enqueue_scripts()
-{
-	// Note: This function can be removed if not used
-}
+	function field_group_admin_enqueue_scripts()
+	{
+		// Note: This function can be removed if not used
+	}
 
-
-/*
+	
+	/*
 	*  field_group_admin_head()
 	*
 	*  This action is called in the admin_head action on the edit screen where your field is edited.
@@ -212,13 +213,13 @@ function field_group_admin_enqueue_scripts()
 	*  @date	23/01/13
 	*/
 
-function field_group_admin_head()
-{
-	// Note: This function can be removed if not used
-}
+	function field_group_admin_head()
+	{
+		// Note: This function can be removed if not used
+	}
 
 
-/*
+	/*
 	*  load_value()
 	*
 		*  This filter is applied to the $value after it is loaded from the db
@@ -233,15 +234,15 @@ function field_group_admin_head()
 	*
 	*  @return	$value - the value to be saved in the database
 	*/
-
-function load_value($value, $post_id, $field)
-{
-	// Note: This function can be removed if not used
-	return $value;
-}
-
-
-/*
+	
+	function load_value( $value, $post_id, $field )
+	{
+		// Note: This function can be removed if not used
+		return $value;
+	}
+	
+	
+	/*
 	*  update_value()
 	*
 	*  This filter is applied to the $value before it is updated in the db
@@ -256,15 +257,15 @@ function load_value($value, $post_id, $field)
 	*
 	*  @return	$value - the modified value
 	*/
-
-function update_value($value, $post_id, $field)
-{
-	// Note: This function can be removed if not used
-	return $value;
-}
-
-
-/*
+	
+	function update_value( $value, $post_id, $field )
+	{
+		// Note: This function can be removed if not used
+		return $value;
+	}
+	
+	
+	/*
 	*  format_value()
 	*
 	*  This filter is applied to the $value after it is loaded from the db and before it is passed to the create_field action
@@ -279,23 +280,23 @@ function update_value($value, $post_id, $field)
 	*
 	*  @return	$value	- the modified value
 	*/
-
-function format_value($value, $post_id, $field)
-{
-	// defaults?
-	/*
+	
+	function format_value( $value, $post_id, $field )
+	{
+		// defaults?
+		/*
 		$field = array_merge($this->defaults, $field);
 		*/
-
-	// perhaps use $field['preview_size'] to alter the $value?
-
-
-	// Note: This function can be removed if not used
-	return $value;
-}
-
-
-/*
+		
+		// perhaps use $field['preview_size'] to alter the $value?
+		
+		
+		// Note: This function can be removed if not used
+		return $value;
+	}
+	
+	
+	/*
 	*  format_value_for_api()
 	*
 	*  This filter is applied to the $value after it is loaded from the db and before it is passed back to the API functions such as the_field
@@ -310,23 +311,23 @@ function format_value($value, $post_id, $field)
 	*
 	*  @return	$value	- the modified value
 	*/
-
-function format_value_for_api($value, $post_id, $field)
-{
-	// defaults?
-	/*
+	
+	function format_value_for_api( $value, $post_id, $field )
+	{
+		// defaults?
+		/*
 		$field = array_merge($this->defaults, $field);
 		*/
-
-	// perhaps use $field['preview_size'] to alter the $value?
-
-
-	// Note: This function can be removed if not used
-	return $value;
-}
-
-
-/*
+		
+		// perhaps use $field['preview_size'] to alter the $value?
+		
+		
+		// Note: This function can be removed if not used
+		return $value;
+	}
+	
+	
+	/*
 	*  load_field()
 	*
 	*  This filter is applied to the $field after it is loaded from the database
@@ -339,15 +340,15 @@ function format_value_for_api($value, $post_id, $field)
 	*
 	*  @return	$field - the field array holding all the field options
 	*/
-
-function load_field($field)
-{
-	// Note: This function can be removed if not used
-	return $field;
-}
-
-
-/*
+	
+	function load_field( $field )
+	{
+		// Note: This function can be removed if not used
+		return $field;
+	}
+	
+	
+	/*
 	*  update_field()
 	*
 	*  This filter is applied to the $field before it is saved to the database
@@ -362,16 +363,17 @@ function load_field($field)
 	*  @return	$field - the modified field
 	*/
 
-function update_field($field, $post_id)
-{
-	// Note: This function can be removed if not used
-	return $field;
-}
+	function update_field( $field, $post_id )
+	{
+		// Note: This function can be removed if not used
+		return $field;
+	}
+
 }
 
 
 // initialize
-new ynm_acf_field_gradient($this->settings);
+new NAMESPACE_acf_field_FIELD_NAME( $this->settings );
 
 
 // class_exists check
