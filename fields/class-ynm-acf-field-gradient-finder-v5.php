@@ -1,17 +1,18 @@
 <?php
 
 // exit if accessed directly
-if( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
 
 // check if class already exists
-if( !class_exists('NAMESPACE_acf_field_FIELD_NAME') ) :
+if (!class_exists('ynm_acf_field_gradient_finder')) :
 
 
-class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
-	
-	
-	/*
+	class ynm_acf_field_gradient_finder extends acf_field
+	{
+
+
+		/*
 	*  __construct
 	*
 	*  This function will setup the field type data
@@ -23,63 +24,63 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	*  @param	n/a
 	*  @return	n/a
 	*/
-	
-	function __construct( $settings ) {
-		
-		/*
+
+		function __construct($settings)
+		{
+
+			/*
 		*  name (string) Single word, no spaces. Underscores allowed
 		*/
-		
-		$this->name = 'FIELD_NAME';
-		
-		
-		/*
+
+			$this->name = 'gradient_finder';
+
+
+			/*
 		*  label (string) Multiple words, can include spaces, visible when selecting a field type
 		*/
-		
-		$this->label = __('FIELD_LABEL', 'TEXTDOMAIN');
-		
-		
-		/*
+
+			$this->label = __('Gradient Finder', 'acf-gradient-finder');
+
+
+			/*
 		*  category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
 		*/
-		
-		$this->category = 'basic';
-		
-		
-		/*
+
+			$this->category = 'basic';
+
+
+			/*
 		*  defaults (array) Array of default settings which are merged into the field object. These are used later in settings
 		*/
-		
-		$this->defaults = array(
-			'font_size'	=> 14,
-		);
-		
-		
-		/*
+
+			$this->defaults = array(
+				'font_size'	=> 14,
+			);
+
+
+			/*
 		*  l10n (array) Array of strings that are used in JavaScript. This allows JS strings to be translated in PHP and loaded via:
-		*  var message = acf._e('FIELD_NAME', 'error');
+		*  var message = acf._e('gradient_finder', 'error');
 		*/
-		
-		$this->l10n = array(
-			'error'	=> __('Error! Please enter a higher value', 'TEXTDOMAIN'),
-		);
-		
-		
-		/*
+
+			$this->l10n = array(
+				'error'	=> __('Error! Please enter a higher value', 'acf-gradient-finder'),
+			);
+
+
+			/*
 		*  settings (array) Store plugin settings (url, path, version) as a reference for later use with assets
 		*/
-		
-		$this->settings = $settings;
-		
-		
-		// do not delete!
-    	parent::__construct();
-    	
-	}
-	
-	
-	/*
+
+			$this->settings = $settings;
+
+
+			// do not delete!
+			parent::__construct();
+		}
+
+
+		/*
 	*  render_field_settings()
 	*
 	*  Create extra settings for your field. These are visible when editing a field
@@ -91,10 +92,11 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	*  @param	$field (array) the $field being edited
 	*  @return	n/a
 	*/
-	
-	function render_field_settings( $field ) {
-		
-		/*
+
+		function render_field_settings($field)
+		{
+
+			/*
 		*  acf_render_field_setting
 		*
 		*  This function will create a setting for your field. Simply pass the $field parameter and an array of field settings.
@@ -103,20 +105,19 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 		*  More than one setting can be added by copy/paste the above code.
 		*  Please note that you must also have a matching $defaults value for the field name (font_size)
 		*/
-		
-		acf_render_field_setting( $field, array(
-			'label'			=> __('Font Size','TEXTDOMAIN'),
-			'instructions'	=> __('Customise the input font size','TEXTDOMAIN'),
-			'type'			=> 'number',
-			'name'			=> 'font_size',
-			'prepend'		=> 'px',
-		));
 
-	}
-	
-	
-	
-	/*
+			acf_render_field_setting($field, array(
+				'label'			=> __('Font Size', 'acf-gradient-finder'),
+				'instructions'	=> __('Customise the input font size', 'acf-gradient-finder'),
+				'type'			=> 'number',
+				'name'			=> 'font_size',
+				'prepend'		=> 'px',
+			));
+		}
+
+
+
+		/*
 	*  render_field()
 	*
 	*  Create the HTML interface for your field
@@ -130,30 +131,31 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	*  @param	$field (array) the $field being edited
 	*  @return	n/a
 	*/
-	
-	function render_field( $field ) {
-		
-		
-		/*
+
+		function render_field($field)
+		{
+
+
+			/*
 		*  Review the data of $field.
 		*  This will show what data is available
 		*/
-		
-		echo '<pre>';
-			print_r( $field );
-		echo '</pre>';
-		
-		
-		/*
+
+			echo '<pre>';
+			print_r($field);
+			echo '</pre>';
+
+
+			/*
 		*  Create a simple text input using the 'font_size' setting.
 		*/
-		
-		?>
+
+			?>
 		<input type="text" name="<?php echo esc_attr($field['name']) ?>" value="<?php echo esc_attr($field['value']) ?>" style="font-size:<?php echo $field['font_size'] ?>px;" />
-		<?php
-	}
-	
-		
+	<?php
+}
+
+
 	/*
 	*  input_admin_enqueue_scripts()
 	*
@@ -178,19 +180,19 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 		
 		
 		// register & include JS
-		wp_register_script('TEXTDOMAIN', "{$url}assets/js/input.js", array('acf-input'), $version);
-		wp_enqueue_script('TEXTDOMAIN');
+		wp_register_script('acf-gradient-finder', "{$url}assets/js/input.js", array('acf-input'), $version);
+		wp_enqueue_script('acf-gradient-finder');
 		
 		
 		// register & include CSS
-		wp_register_style('TEXTDOMAIN', "{$url}assets/css/input.css", array('acf-input'), $version);
-		wp_enqueue_style('TEXTDOMAIN');
+		wp_register_style('acf-gradient-finder', "{$url}assets/css/input.css", array('acf-input'), $version);
+		wp_enqueue_style('acf-gradient-finder');
 		
 	}
 	
 	*/
-	
-	
+
+
 	/*
 	*  input_admin_head()
 	*
@@ -214,8 +216,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	}
 	
 	*/
-	
-	
+
+
 	/*
    	*  input_form_data()
    	*
@@ -232,8 +234,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
    	*  @param	$args (array)
    	*  @return	n/a
    	*/
-   	
-   	/*
+
+	/*
    	
    	function input_form_data( $args ) {
 	   	
@@ -242,8 +244,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
    	}
    	
    	*/
-	
-	
+
+
 	/*
 	*  input_admin_footer()
 	*
@@ -267,8 +269,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	}
 	
 	*/
-	
-	
+
+
 	/*
 	*  field_group_admin_enqueue_scripts()
 	*
@@ -291,7 +293,7 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	
 	*/
 
-	
+
 	/*
 	*  field_group_admin_head()
 	*
@@ -329,7 +331,7 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	*  @param	$field (array) the field array holding all the field options
 	*  @return	$value
 	*/
-	
+
 	/*
 	
 	function load_value( $value, $post_id, $field ) {
@@ -339,8 +341,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	}
 	
 	*/
-	
-	
+
+
 	/*
 	*  update_value()
 	*
@@ -355,7 +357,7 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	*  @param	$field (array) the field array holding all the field options
 	*  @return	$value
 	*/
-	
+
 	/*
 	
 	function update_value( $value, $post_id, $field ) {
@@ -365,8 +367,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	}
 	
 	*/
-	
-	
+
+
 	/*
 	*  format_value()
 	*
@@ -382,7 +384,7 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	*
 	*  @return	$value (mixed) the modified value
 	*/
-		
+
 	/*
 	
 	function format_value( $value, $post_id, $field ) {
@@ -409,8 +411,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	}
 	
 	*/
-	
-	
+
+
 	/*
 	*  validate_value()
 	*
@@ -428,7 +430,7 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	*  @param	$input (string) the corresponding input name for $_POST value
 	*  @return	$valid
 	*/
-	
+
 	/*
 	
 	function validate_value( $valid, $value, $field, $input ){
@@ -443,7 +445,7 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 		// Advanced usage
 		if( $value < $field['custom_minimum_setting'] )
 		{
-			$valid = __('The value is too little!','TEXTDOMAIN'),
+			$valid = __('The value is too little!','acf-gradient-finder'),
 		}
 		
 		
@@ -453,8 +455,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	}
 	
 	*/
-	
-	
+
+
 	/*
 	*  delete_value()
 	*
@@ -469,7 +471,7 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	*  @param	$key (string) the $meta_key which the value was deleted
 	*  @return	n/a
 	*/
-	
+
 	/*
 	
 	function delete_value( $post_id, $key ) {
@@ -479,8 +481,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	}
 	
 	*/
-	
-	
+
+
 	/*
 	*  load_field()
 	*
@@ -493,7 +495,7 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	*  @param	$field (array) the field array holding all the field options
 	*  @return	$field
 	*/
-	
+
 	/*
 	
 	function load_field( $field ) {
@@ -503,8 +505,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	}	
 	
 	*/
-	
-	
+
+
 	/*
 	*  update_field()
 	*
@@ -517,7 +519,7 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	*  @param	$field (array) the field array holding all the field options
 	*  @return	$field
 	*/
-	
+
 	/*
 	
 	function update_field( $field ) {
@@ -527,8 +529,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	}	
 	
 	*/
-	
-	
+
+
 	/*
 	*  delete_field()
 	*
@@ -541,7 +543,7 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	*  @param	$field (array) the field array holding all the field options
 	*  @return	n/a
 	*/
-	
+
 	/*
 	
 	function delete_field( $field ) {
@@ -551,13 +553,11 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	}	
 	
 	*/
-	
-	
 }
 
 
 // initialize
-new NAMESPACE_acf_field_FIELD_NAME( $this->settings );
+new ynm_acf_field_gradient_finder($this->settings);
 
 
 // class_exists check
