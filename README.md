@@ -1,5 +1,5 @@
-# ACF FIELD_LABEL Field
+# ACF Gradient Field Field
 
-Welcome to the Advanced Custom Fields FIELD_LABEL repository on Github.
+Welcome to the Advanced Custom Fields Gradient Field repository on Github.
 
 EXTENDED_DESCRIPTION
