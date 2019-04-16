@@ -77,7 +77,7 @@ if (!class_exists('ynm_acf_plugin_gradient_finder')) :
 
 
 			// load acf-gradient-finder
-			load_plugin_acf - gradient - finder('acf-gradient-finder', false, plugin_basename(dirname(__FILE__)) . '/lang');
+			load_plugin_textdomain('acf-gradient-finder', false, plugin_basename(dirname(__FILE__)) . '/lang');
 
 
 			// include

@@ -13,6 +13,38 @@
 
   function initialize_field($field) {
     //$field.doStuff();
+
+    const gp = new Grapick({
+      el: "#gp",
+      colorEl: '<input id="colorpicker"/>'
+    });
+
+    gp.setColorPicker(handler => {
+      const el = handler.getEl().querySelector("#colorpicker");
+
+      $(el).spectrum({
+        color: handler.getColor(),
+        preferredFormat: "hex",
+        showInput: true,
+        showAlpha: false,
+        change(color) {
+          handler.setColor(color.toRgbString());
+        },
+        move(color) {
+          handler.setColor(color.toRgbString(), 0);
+        }
+      });
+    });
+
+    // Do stuff on change of the gradient
+    gp.on("change", complete => {
+      document.body.style.background = gp.getSafeValue();
+      saveHandlersToInput($field, gp.getHandlers());
+    });
+
+    // Handlers are color stops
+    gp.addHandler(0, "white");
+    gp.addHandler(100, "blue");
   }
 
   if (typeof acf.add_action !== "undefined") {
@@ -49,5 +81,12 @@
           initialize_field($(this));
         });
     });
+  }
+
+  function saveHandlersToInput(field, handlers) {
+    handlers.forEach(handler => {
+      console.log(handler.position, handler.color);
+    });
+    console.log(acf.findField($(field).data("key")));
   }
 })(jQuery);

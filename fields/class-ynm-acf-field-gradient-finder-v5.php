@@ -13,45 +13,45 @@ if (!class_exists('ynm_acf_field_gradient_finder')) :
 
 
 		/*
-	*  __construct
-	*
-	*  This function will setup the field type data
-	*
-	*  @type	function
-	*  @date	5/03/2014
-	*  @since	5.0.0
-	*
-	*  @param	n/a
-	*  @return	n/a
-	*/
+ 	 	 *  __construct
+		 *
+		 *  This function will setup the field type data
+		 *
+		 *  @type	function
+		 *  @date	5/03/2014
+		 *  @since	5.0.0
+		 *
+		 *  @param	n/a
+		 *  @return	n/a
+		 */
 
 		function __construct($settings)
 		{
 
 			/*
-		*  name (string) Single word, no spaces. Underscores allowed
-		*/
+			 *  name (string) Single word, no spaces. Underscores allowed
+			 */
 
 			$this->name = 'gradient_finder';
 
 
 			/*
-		*  label (string) Multiple words, can include spaces, visible when selecting a field type
-		*/
+			 *  label (string) Multiple words, can include spaces, visible when selecting a field type
+		 	 */
 
 			$this->label = __('Gradient Finder', 'acf-gradient-finder');
 
 
 			/*
-		*  category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
-		*/
+			 *  category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
+			 */
 
-			$this->category = 'basic';
+			$this->category = 'jquery';
 
 
 			/*
-		*  defaults (array) Array of default settings which are merged into the field object. These are used later in settings
-		*/
+			 *  defaults (array) Array of default settings which are merged into the field object. These are used later in settings
+			 */
 
 			$this->defaults = array(
 				'font_size'	=> 14,
@@ -59,9 +59,9 @@ if (!class_exists('ynm_acf_field_gradient_finder')) :
 
 
 			/*
-		*  l10n (array) Array of strings that are used in JavaScript. This allows JS strings to be translated in PHP and loaded via:
-		*  var message = acf._e('gradient_finder', 'error');
-		*/
+			 *  l10n (array) Array of strings that are used in JavaScript. This allows JS strings to be translated in PHP and loaded via:
+			 *  var message = acf._e('gradient_finder', 'error');
+			 */
 
 			$this->l10n = array(
 				'error'	=> __('Error! Please enter a higher value', 'acf-gradient-finder'),
@@ -69,8 +69,8 @@ if (!class_exists('ynm_acf_field_gradient_finder')) :
 
 
 			/*
-		*  settings (array) Store plugin settings (url, path, version) as a reference for later use with assets
-		*/
+		 	 *  settings (array) Store plugin settings (url, path, version) as a reference for later use with assets
+			 */
 
 			$this->settings = $settings;
 
@@ -81,30 +81,30 @@ if (!class_exists('ynm_acf_field_gradient_finder')) :
 
 
 		/*
-	*  render_field_settings()
-	*
-	*  Create extra settings for your field. These are visible when editing a field
-	*
-	*  @type	action
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	$field (array) the $field being edited
-	*  @return	n/a
-	*/
+		 *  render_field_settings()
+		 *
+		 *  Create extra settings for your field. These are visible when editing a field
+		 *
+		 *  @type	action
+		 *  @since	3.6
+		 *  @date	23/01/13
+		 *
+		 *  @param	$field (array) the $field being edited
+		 *  @return	n/a
+		 */
 
 		function render_field_settings($field)
 		{
 
 			/*
-		*  acf_render_field_setting
-		*
-		*  This function will create a setting for your field. Simply pass the $field parameter and an array of field settings.
-		*  The array of settings does not require a `value` or `prefix`; These settings are found from the $field array.
-		*
-		*  More than one setting can be added by copy/paste the above code.
-		*  Please note that you must also have a matching $defaults value for the field name (font_size)
-		*/
+			 *  acf_render_field_setting
+			 *
+			 *  This function will create a setting for your field. Simply pass the $field parameter and an array of field settings.
+			 *  The array of settings does not require a `value` or `prefix`; These settings are found from the $field array.
+			 *
+			 *  More than one setting can be added by copy/paste the above code.
+			 *  Please note that you must also have a matching $defaults value for the field name (font_size)
+			 */
 
 			acf_render_field_setting($field, array(
 				'label'			=> __('Font Size', 'acf-gradient-finder'),
@@ -118,79 +118,95 @@ if (!class_exists('ynm_acf_field_gradient_finder')) :
 
 
 		/*
-	*  render_field()
-	*
-	*  Create the HTML interface for your field
-	*
-	*  @param	$field (array) the $field being rendered
-	*
-	*  @type	action
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	$field (array) the $field being edited
-	*  @return	n/a
-	*/
+		 *  render_field()
+		 *
+		 *  Create the HTML interface for your field
+		 *
+		 *  @param	$field (array) the $field being rendered
+		 *
+		 *  @type	action
+		 *  @since	3.6
+		 *  @date	23/01/13
+		 *
+		 *  @param	$field (array) the $field being edited
+		 *  @return	n/a
+		 */
 
 		function render_field($field)
 		{
 
 
 			/*
-		*  Review the data of $field.
-		*  This will show what data is available
-		*/
+			 *  Review the data of $field.
+			 *  This will show what data is available
+			 */
 
 			echo '<pre>';
 			print_r($field);
 			echo '</pre>';
 
-
-			/*
-		*  Create a simple text input using the 'font_size' setting.
-		*/
-
 			?>
+
+		<div id="gp"></div>
+
+		<?php
+
+		/*
+			 *  Create a simple text input using the 'font_size' setting.
+			 */
+
+		?>
 		<input type="text" name="<?php echo esc_attr($field['name']) ?>" value="<?php echo esc_attr($field['value']) ?>" style="font-size:<?php echo $field['font_size'] ?>px;" />
 	<?php
 }
 
 
-	/*
-	*  input_admin_enqueue_scripts()
-	*
-	*  This action is called in the admin_enqueue_scripts action on the edit screen where your field is created.
-	*  Use this action to add CSS + JavaScript to assist your render_field() action.
-	*
-	*  @type	action (admin_enqueue_scripts)
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	n/a
-	*  @return	n/a
-	*/
+/*
+ *  input_admin_enqueue_scripts()
+ *
+ *  This action is called in the admin_enqueue_scripts action on the edit screen where your field is created.
+ *  Use this action to add CSS + JavaScript to assist your render_field() action.
+ *
+ *  @type	action (admin_enqueue_scripts)
+ *  @since	3.6
+ *  @date	23/01/13
+ *
+ *  @param	n/a
+ *  @return	n/a
+ */
 
-	/*
-	
-	function input_admin_enqueue_scripts() {
-		
-		// vars
-		$url = $this->settings['url'];
-		$version = $this->settings['version'];
-		
-		
-		// register & include JS
-		wp_register_script('acf-gradient-finder', "{$url}assets/js/input.js", array('acf-input'), $version);
-		wp_enqueue_script('acf-gradient-finder');
-		
-		
-		// register & include CSS
-		wp_register_style('acf-gradient-finder', "{$url}assets/css/input.css", array('acf-input'), $version);
-		wp_enqueue_style('acf-gradient-finder');
-		
-	}
-	
-	*/
+
+
+function input_admin_enqueue_scripts()
+{
+
+	// vars
+	$url = $this->settings['url'];
+	$version = $this->settings['version'];
+
+	wp_register_script('spectrum-js', "{$url}assets/js/spectrum.min.js", array('acf-input'), $version);
+	wp_enqueue_script('spectrum-js');
+	wp_register_style('spectrum-css', "{$url}assets/css/spectrum.min.css", array('acf-input'), $version);
+	wp_enqueue_style('spectrum-css');
+
+	wp_register_script('grapick-js', "{$url}assets/js/grapick.min.js", array('acf-input'), $version);
+	wp_enqueue_script('grapick-js');
+	wp_register_style('grapick-css', "{$url}assets/css/grapick.min.css", array('acf-input'), $version);
+	wp_enqueue_style('grapick-css');
+
+
+
+
+	// register & include JS
+	wp_register_script('acf-gradient-finder', "{$url}assets/js/input.js", array('acf-input'), $version);
+	wp_enqueue_script('acf-gradient-finder');
+
+
+	// register & include CSS
+	wp_register_style('acf-gradient-finder', "{$url}assets/css/input.css", array('acf-input'), $version);
+	wp_enqueue_style('acf-gradient-finder');
+}
+
 
 
 	/*
